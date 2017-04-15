@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import simpleAccount.controller.AccountController;
-import simpleAccount.model.AccountModel;
 import simpleAccount.model.Model;
 import simpleAccount.model.ModelEvent;
 
@@ -74,13 +73,9 @@ public class AccountDetailView extends JFrameView {
 	@Override
 	public void ModelChanged(ModelEvent event) {
 		if(getViewId() == event.getId()){
-			if(currencyType.equals("Euro")){
-				double convertedAmount = event.getAmount() * AccountModel.EXCHANGE_EURO;
-				displayAmount.setText(convertedAmount + "");
-			}
-			else if(currencyType.equals("Yuan")){
-				double convertedAmount = event.getAmount() * AccountModel.EXCHANGE_YUAN;
-				displayAmount.setText(convertedAmount + "");
+			if(!(currencyType.equals("$"))){
+				String convertedAmount = ((AccountController)getController()).getCurrency(event.getAmount(), currencyType);
+				displayAmount.setText(convertedAmount);
 			}
 			else
 				displayAmount.setText(event.getAmount() + "");

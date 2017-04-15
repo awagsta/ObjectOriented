@@ -46,12 +46,15 @@ public class AccountController extends AbstractController {
 				
 	}
 	
+	// Converts entered Euros or Yuan into USD for deposits or withdrawals
 	private double formatAmount(String amount, String currencyType) throws NumberFormatException{
 		DecimalFormat df = new DecimalFormat("#.00");
 		if(currencyType.equals("Euro")){
+			// Convert entered Euros to USD
 			double convertedAmount = Double.parseDouble(amount) / AccountModel.EXCHANGE_EURO;
 			return Double.parseDouble(df.format(convertedAmount));
 		}
+		// Convert entered Yuan to USD
 		else if(currencyType.equals("Yuan")){
 			double convertedAmount = Double.parseDouble(amount) / AccountModel.EXCHANGE_YUAN;
 			return Double.parseDouble(df.format(convertedAmount));
@@ -61,6 +64,18 @@ public class AccountController extends AbstractController {
 			return Double.parseDouble(df.format(convertedAmount));
 		}
 			
+	}
+	
+	// Used by the view to get modified currency in Euros or Yuan
+	public String getCurrency(double amount, String currencyType){
+		DecimalFormat df = new DecimalFormat("#.00");
+		if(currencyType.equals("Euro")){
+			amount = amount * AccountModel.EXCHANGE_EURO;
+		}
+		else
+			amount = amount * AccountModel.EXCHANGE_YUAN;
+		return df.format(amount);
+		
 	}
 
 }
