@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import simpleAccount.controller.AccountController;
+import simpleAccount.model.AccountModel;
 import simpleAccount.model.Model;
 import simpleAccount.model.ModelEvent;
 
@@ -34,8 +35,8 @@ public class AccountDetailView extends JFrameView {
 		// Create the fund display panel and associated widgets
 		JPanel fundsPanel = new JPanel();
 		JLabel fundAmount = new JLabel("Available funds in" + " " + currencyType);
-		displayAmount = new JTextField(10);
-		displayAmount.setText(amount);
+		displayAmount = new JTextField(amount, 10);
+		displayAmount.setEditable(false);
 		
 		// Create the edit amount panel and associated widgets
 		JPanel editAmtPanel = new JPanel();
@@ -73,8 +74,16 @@ public class AccountDetailView extends JFrameView {
 	@Override
 	public void ModelChanged(ModelEvent event) {
 		if(getViewId() == event.getId()){
-			displayAmount.setText(event.getAmount() + "$");
-			// Add logic to do the conversion
+			if(currencyType.equals("Euro")){
+				double convertedAmount = event.getAmount() * AccountModel.EXCHANGE_EURO;
+				displayAmount.setText(convertedAmount + "");
+			}
+			else if(currencyType.equals("Yuan")){
+				double convertedAmount = event.getAmount() * AccountModel.EXCHANGE_YUAN;
+				displayAmount.setText(convertedAmount + "");
+			}
+			else
+				displayAmount.setText(event.getAmount() + "");
 		}
 		
 	}

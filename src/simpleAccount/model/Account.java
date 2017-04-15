@@ -84,4 +84,27 @@ private double amount;
 		String temp = name + "\t" + id;
 		return temp;
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o == null)
+			return false;
+		
+		if(!(o instanceof Account))
+			return false;
+		
+		Account oAccount = (Account) o;
+		
+		if(this.id == oAccount.id)
+			return true;
+		else
+			return false;
+		}
+	
+	@Override
+	public int hashCode(){
+		return id;
+	}
+		
 }
+

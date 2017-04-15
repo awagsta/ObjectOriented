@@ -23,7 +23,7 @@ public class AccountController extends AbstractController {
 		setView(new AccountDetailView(model, this, viewId, accountString, currencyType, Double.toString(accountAmount)));
 	}
 	
-	// TODO flesh out the catch blocks to be more specific and generate Jdialogs
+	// TODO flesh out the catch blocks to be more specific and generate JDialogs
 	public void operation(String option, int viewId, String enteredAmount, String currencyType){
 			if(option.equals(AccountDetailView.DEPOSIT)){
 				try{
