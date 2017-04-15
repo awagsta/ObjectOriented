@@ -33,5 +33,9 @@ public class ModelController extends AbstractController {
 		}
 			
 	}
+	
+	public String[] populateList(){
+		return ((AccountModel)getModel()).getAccountList();
+	}
 
 }

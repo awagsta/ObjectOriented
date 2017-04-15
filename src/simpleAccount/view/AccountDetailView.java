@@ -11,7 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import simpleAccount.controller.Controller;
+import simpleAccount.controller.AccountController;
 import simpleAccount.model.Model;
 import simpleAccount.model.ModelEvent;
 
@@ -24,7 +24,7 @@ public class AccountDetailView extends JFrameView {
 	private JTextField enterAmount;
 	private String currencyType;
 
-	public AccountDetailView(Model model, Controller controller, int viewId, String accountInfo, String currencyType, String amount) {
+	public AccountDetailView(Model model, AccountController controller, int viewId, String accountInfo, String currencyType, String amount) {
 		super(model, controller);
 		this.setViewId(viewId);
 		JFrame f = new JFrame(accountInfo);
@@ -34,12 +34,13 @@ public class AccountDetailView extends JFrameView {
 		// Create the fund display panel and associated widgets
 		JPanel fundsPanel = new JPanel();
 		JLabel fundAmount = new JLabel("Available funds in" + " " + currencyType);
-		displayAmount = new JTextField(amount);
+		displayAmount = new JTextField(10);
+		displayAmount.setText(amount);
 		
 		// Create the edit amount panel and associated widgets
 		JPanel editAmtPanel = new JPanel();
 		JLabel changeAmount = new JLabel("Enter amount in" + " " + currencyType);
-		enterAmount = new JTextField();
+		enterAmount = new JTextField(10);
 		
 		// Create the button panel and associated widgets
 		JPanel buttonPanel = new JPanel();
@@ -72,7 +73,8 @@ public class AccountDetailView extends JFrameView {
 	@Override
 	public void ModelChanged(ModelEvent event) {
 		if(getViewId() == event.getId()){
-			displayAmount.setText(event.getAmount() + "");
+			displayAmount.setText(event.getAmount() + "$");
+			// Add logic to do the conversion
 		}
 		
 	}
@@ -81,7 +83,7 @@ public class AccountDetailView extends JFrameView {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			//((AccountController)getController()).operation(e.getActionCommand(), viewId, enterAmount.getText(), currencyType);
+			((AccountController)getController()).operation(e.getActionCommand(), getViewId(), enterAmount.getText(), currencyType);
 			
 		}
 		

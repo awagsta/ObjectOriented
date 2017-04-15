@@ -26,9 +26,6 @@ public class AccountModelView extends JFrameView {
 
 	private JComboBox<String> accountBox;
 	
-	// temporary string array to show combo box is working
-	String[] aList = {"Account 1", "Account 2", "Account 3", "Account 4"};
-	
 	public AccountModelView(AccountModel model, ModelController controller){
 		super(model, controller);
 		setViewId(0);
@@ -39,11 +36,19 @@ public class AccountModelView extends JFrameView {
 		JPanel selectionPanel = new JPanel();
 		ButtonHandler  bHandler = new ButtonHandler();
 		ComboBoxHandler cHandler = new ComboBoxHandler();
-		// TODO replace this with the array of strings the combo box will populate
-		// next, set the combo box to this array, and the viewId to the account id of the
-		// first account in the account string array
-		String[] aList = {"Account 1", "Account 2", "Account 3", "Account 4"};
+		// TODO get account list from controller, not model
+		String[] aList = controller.populateList();
 		accountBox = new JComboBox<String>(aList);
+		
+		// Set the view ID to first account in the list
+		String[] accountComponents = aList[0].split("\t");
+		try{
+			setViewId(Integer.parseInt(accountComponents[1]));
+			}catch(NumberFormatException ex){
+				System.out.println("Error: not a number for account ID");
+				// Replace with JDialog later
+			}
+		
 		JButton saveButton = new JButton(SAVE);
 		JButton exitButton = new JButton(EXIT);
 		JButton euroButton = new JButton(EDIT_EURO);
@@ -106,7 +111,12 @@ public class AccountModelView extends JFrameView {
 			
 		}	
 	}
-	
+
+	public static void main(String[] args){
+		String fileName = "/Users/alexanderwagstaff/Documents/workspace/simpleAccount/res/sampleAccountList.txt";
+		new ModelController(fileName);
+	}
 }
+
 	
 
