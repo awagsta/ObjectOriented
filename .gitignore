@@ -1,0 +1,5 @@
+*.class
+*.txt
+AccountModelTest.java
+AccountDetailViewTest.java
+AccountViewTest.java

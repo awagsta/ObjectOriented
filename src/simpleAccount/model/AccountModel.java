@@ -31,7 +31,7 @@ public class AccountModel extends AbstractModel {
 			inFile = new Scanner(new FileReader(fileName));
 		}catch(Exception e){
 			String message = "File not found. Program will now exit.";
-			JOptionPane.showInternalMessageDialog(null, message, "File Not Found", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, message, "File Not Found", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		while(inFile.hasNext()){
@@ -98,13 +98,12 @@ public class AccountModel extends AbstractModel {
 		}
 		
 		if(amount <= 1.0){
-			throw new InvalidAmountException("Invalid amount entered. Amount must be greater than or equal to 1.0");
+			throw new InvalidAmountException("Invalid amount entered. Amount must be greater than 1.0");
 		}
 		
 		double temp = searchedAccount.getAmount() - amount;
 		searchedAccount.setAmount(temp);
 		
-		//TODO determine importance and role of model event parameters
 		ModelEvent me = new ModelEvent(this, searchedAccount.getId(), "", temp);
 		notifyChanged(me);
 	}
@@ -144,6 +143,7 @@ public class AccountModel extends AbstractModel {
 		
 	}
 	
+	// Helper function to find the accounts
 	private Account findAccount(int searchId) {
 		for(Account temp: accountList){
 			if(temp.getId() == searchId)
@@ -152,6 +152,11 @@ public class AccountModel extends AbstractModel {
 		return new Account();
 	}
 	
+	/**
+	 * Returns the account specified by the search id
+	 * @param searchId The id to search for
+	 * @return the account with that id
+	 */
 	public Account getAccount(int searchId){
 		return findAccount(searchId);
 		
@@ -170,6 +175,5 @@ public class AccountModel extends AbstractModel {
 		}
 		return accountList;
 	}
-	//TODO implement constructor functionality to read data in
 	
 }

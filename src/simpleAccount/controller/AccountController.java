@@ -5,10 +5,14 @@ import java.text.DecimalFormat;
 import simpleAccount.model.AbstractModel;
 import simpleAccount.model.Account;
 import simpleAccount.model.AccountModel;
+import simpleAccount.model.InsufficientFundsException;
 import simpleAccount.model.InvalidAmountException;
 import simpleAccount.view.AccountDetailView;
 
 public class AccountController extends AbstractController {
+	private static final String WITHDRAWAL_ERROR = "Withdrawal Error";
+	private static final String DEPOSIT_ERROR = "Deposit Error";
+	
 	AccountController(AbstractModel model, int viewId, String currencyType){
 		setModel(model);
 		Account searchedAccount = ((AccountModel)getModel()).getAccount(viewId);
@@ -33,12 +37,10 @@ public class AccountController extends AbstractController {
 					
 				}catch(NumberFormatException e){
 					String errorMessage = "Invalid amount entered for deposit. Amount must be a number.";
-					String errorTitle = "Deposit Error";
-					((AccountDetailView)getView()).displayErrorMessage(errorMessage, errorTitle);
+					((AccountDetailView)getView()).displayErrorMessage(errorMessage, DEPOSIT_ERROR);
 				}
 				catch(InvalidAmountException e){
-					String errorTitle = "Deposit Error";
-					((AccountDetailView)getView()).displayErrorMessage(e.getMessage(), errorTitle);
+					((AccountDetailView)getView()).displayErrorMessage(e.getMessage(), DEPOSIT_ERROR);
 					
 				}
 			}
@@ -47,8 +49,16 @@ public class AccountController extends AbstractController {
 					double formattedAmount = formatAmount(enteredAmount, currencyType);
 					((AccountModel)getModel()).withdraw(formattedAmount, viewId);
 				}
-				catch(Exception e){
-					e.printStackTrace();
+				catch(NumberFormatException e){
+					String errorMessage = "Invalid amount entered for withdrawal. Amount must be a number.";
+					((AccountDetailView)getView()).displayErrorMessage(errorMessage, WITHDRAWAL_ERROR);
+				}
+				catch(InvalidAmountException e){
+					((AccountDetailView)getView()).displayErrorMessage(e.getMessage(), WITHDRAWAL_ERROR);
+				}
+				catch(InsufficientFundsException e){
+					((AccountDetailView)getView()).displayErrorMessage(e.getMessage(), WITHDRAWAL_ERROR);
+
 				}
 			}
 				
