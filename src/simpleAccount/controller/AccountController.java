@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import simpleAccount.model.AbstractModel;
 import simpleAccount.model.Account;
 import simpleAccount.model.AccountModel;
+import simpleAccount.model.InvalidAmountException;
 import simpleAccount.view.AccountDetailView;
 
 public class AccountController extends AbstractController {
@@ -29,9 +30,16 @@ public class AccountController extends AbstractController {
 				try{
 					double formattedAmount = formatAmount(enteredAmount, currencyType);
 					((AccountModel)getModel()).deposit(formattedAmount, viewId);
+					
+				}catch(NumberFormatException e){
+					String errorMessage = "Invalid amount entered for deposit. Amount must be a number.";
+					String errorTitle = "Deposit Error";
+					((AccountDetailView)getView()).displayErrorMessage(errorMessage, errorTitle);
 				}
-				catch(Exception e){
-					e.printStackTrace();
+				catch(InvalidAmountException e){
+					String errorTitle = "Deposit Error";
+					((AccountDetailView)getView()).displayErrorMessage(e.getMessage(), errorTitle);
+					
 				}
 			}
 			else{
@@ -72,8 +80,9 @@ public class AccountController extends AbstractController {
 		if(currencyType.equals("Euro")){
 			amount = amount * AccountModel.EXCHANGE_EURO;
 		}
-		else
+		else if(currencyType.equals("Yuan")){
 			amount = amount * AccountModel.EXCHANGE_YUAN;
+		}
 		return df.format(amount);
 		
 	}

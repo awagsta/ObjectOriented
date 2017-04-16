@@ -8,6 +8,7 @@ import java.awt.event.WindowEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -69,16 +70,21 @@ public class AccountDetailView extends JFrameView {
 
 	}
 	
+	/**
+	 * This method is used by the controller to create error messages for the user
+	 * @param errorMessage The Message associated with the error
+	 * @param errorTitle The title of the Error Message
+	 */
+	public void displayErrorMessage(String errorMessage, String errorTitle){
+		JOptionPane.showMessageDialog(this, errorMessage, errorTitle, JOptionPane.ERROR_MESSAGE);
+	}
+	
 	
 	@Override
 	public void ModelChanged(ModelEvent event) {
 		if(getViewId() == event.getId()){
-			if(!(currencyType.equals("$"))){
 				String convertedAmount = ((AccountController)getController()).getCurrency(event.getAmount(), currencyType);
 				displayAmount.setText(convertedAmount);
-			}
-			else
-				displayAmount.setText(event.getAmount() + "");
 		}
 		
 	}
@@ -88,7 +94,7 @@ public class AccountDetailView extends JFrameView {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			((AccountController)getController()).operation(e.getActionCommand(), getViewId(), enterAmount.getText(), currencyType);
-			
+			enterAmount.setText("");
 		}
 		
 	}

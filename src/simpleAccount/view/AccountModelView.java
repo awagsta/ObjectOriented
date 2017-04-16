@@ -80,7 +80,6 @@ public class AccountModelView extends JFrameView {
 		f.setVisible(true);
 	}
 	
-
 	@Override
 	public void ModelChanged(ModelEvent event) {
 		// This view does not need to update, as accounts cannot be created past initialization and added
