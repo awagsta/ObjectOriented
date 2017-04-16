@@ -8,8 +8,7 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 /**
- * The AccountModel class represents the model for an account controlling system. It forms the
- * model portion of the MVC architecture
+ * The AccountModel class represents the model for an account controlling system.
  * @author Alexander Wagstaff
  *
  */
@@ -21,8 +20,8 @@ public class AccountModel extends AbstractModel {
 	
 
 	/**
-	 * Constructor to initialize the account objects in the model 
-	 * @param fileName the file containing account information to initialize account objects
+	 * Constructs an AccountModel object to initialize the account objects in the model .
+	 * @param fileName the file containing account information used to initialize account objects
 	 */
 	public AccountModel(String fileName){
 		this.fileName = fileName;
@@ -58,7 +57,7 @@ public class AccountModel extends AbstractModel {
 	}
 	
 	/**
-	 * Adds the specified amount to the specified account
+	 * Adds the specified amount to the specified account.
 	 * @param amount the amount to be added
 	 * @param account the account to which the amount is added
 	 */
@@ -75,7 +74,6 @@ public class AccountModel extends AbstractModel {
 		double temp = amount + searchedAccount.getAmount();
 		searchedAccount.setAmount(temp);
 		
-		//TODO change the model event once sure how to implement it
 		ModelEvent me = new ModelEvent(this, searchedAccount.getId(), "", temp );
 		notifyChanged(me);
 		
@@ -153,7 +151,7 @@ public class AccountModel extends AbstractModel {
 	}
 	
 	/**
-	 * Returns the account specified by the search id
+	 * Returns the account specified by the search id.
 	 * @param searchId The id to search for
 	 * @return the account with that id
 	 */
@@ -163,7 +161,7 @@ public class AccountModel extends AbstractModel {
 	}
 	
 	/**
-	 * Returns a string array representation of the list of accounts
+	 * Returns a string array representation of the list of accounts.
 	 * @return The string array representing the accounts
 	 */
 	public String[] getAccountList(){

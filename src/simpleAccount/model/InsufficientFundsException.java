@@ -1,8 +1,7 @@
 package simpleAccount.model;
 
 /**
- * The InsufficientFundsException class is used to notify a user who attempts to withdraw
- * more funds from an account than are available that the action cannot proceed.
+ * This exception indicates there are insufficient funds in an account to proceed with a withdrawal.
  * @author Alexander Wagstaff
  *
  */
@@ -12,14 +11,14 @@ public class InsufficientFundsException extends Exception {
 	private String message = null;
 
 	/**
-	 * Construct a default exception object with no message.
+	 * Constructs an InsufficientFundsException object with no message.
 	 */
 	public InsufficientFundsException(){
 		super();
 	}
 	
 	/**
-	 * Construct an exception object with a message
+	 * Constructs an InsufficientFundsException object with a message.
 	 * @param message the message to be stored in the exception object
 	 */
 	public InsufficientFundsException(String message){
@@ -28,7 +27,7 @@ public class InsufficientFundsException extends Exception {
 	}
 	
 	/**
-	 * Construct new exception object with specified cause
+	 * Constructs an InsufficientFundsException object with specified cause.
 	 * @param cause the cause to be specified
 	 */
 	public InsufficientFundsException(Throwable cause) {
@@ -36,14 +35,14 @@ public class InsufficientFundsException extends Exception {
 	}
 	
 	/**
-	 * Returns the message associated with this exception object
+	 * Returns the message associated with this exception object.
 	 */
 	public String toString(){
 		return message;
 	}
 	
 	/**
-	 * Returns message associated with this exception object
+	 * Returns String representation of this exception object.
 	 */
 	public String getMessage(){
 		return message;

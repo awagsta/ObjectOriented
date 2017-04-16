@@ -12,20 +12,32 @@ import simpleAccount.controller.ModelController;
 import simpleAccount.model.AccountModel;
 import simpleAccount.model.ModelEvent;
 
+/**
+ * The AccountModelView class represents the primary view for an account controlling system.
+ * It is responsible for displaying the list of accounts in the associated AccountModel object,
+ * as well as receiving user gestures to pass to the associated ModelController object.
+ * 
+ * @author Alexander Wagstaff
+ *
+ */
 public class AccountModelView extends JFrameView {
 
 
 	private static final long serialVersionUID = -7411418821017564524L;
-	// The currently selected account's id this view is associated with
-	
 	public static final String SAVE = "Save";
 	public static final String EXIT = "Exit";
 	public static final String EDIT_EURO = "Edit in Euros";
 	public static final String EDIT_USD = "Edit in USD";
 	public static final String EDIT_YUAN = "Edit in Yuan";
 
+	// A combo box to store string representations of accounts in the AccountModel
 	private JComboBox<String> accountBox;
 	
+	/**
+	 * Constructs an AccountModelView object that acts as the main view for the associated AccountModel.
+	 * @param model The AccountModel associated with this view
+	 * @param controller The ModelController associated with this view
+	 */
 	public AccountModelView(AccountModel model, ModelController controller){
 		super(model, controller);
 		setViewId(0);
@@ -34,9 +46,10 @@ public class AccountModelView extends JFrameView {
 		JPanel CurrencyPanel = new JPanel();
 		JPanel accountListPanel = new JPanel();
 		JPanel selectionPanel = new JPanel();
+		
+		// Create handler objects for the buttons
 		ButtonHandler  bHandler = new ButtonHandler();
 		ComboBoxHandler cHandler = new ComboBoxHandler();
-		// TODO get account list from controller, not model
 		String[] aList = controller.populateList();
 		accountBox = new JComboBox<String>(aList);
 		
@@ -45,16 +58,18 @@ public class AccountModelView extends JFrameView {
 		try{
 			setViewId(Integer.parseInt(accountComponents[1]));
 			}catch(NumberFormatException ex){
+				// This should never be reached.
 				System.out.println("Error: not a number for account ID");
-				// Replace with JDialog later
 			}
 		
+		// Create the buttons the user can interact with
 		JButton saveButton = new JButton(SAVE);
 		JButton exitButton = new JButton(EXIT);
 		JButton euroButton = new JButton(EDIT_EURO);
 		JButton dollarButton = new JButton(EDIT_USD);
 		JButton yenButton = new JButton(EDIT_YUAN);
 		
+		// add the panels to the frame and the listeners to the buttons
 		accountListPanel.add(accountBox);
 		accountBox.addActionListener(cHandler);
 		
@@ -86,17 +101,33 @@ public class AccountModelView extends JFrameView {
 		// to the combo box representation of accounts.	
 	}
 	
+	/**
+	 * Inner class responsible for handling button events in the AccountModelView object.
+	 * @author Alexander Wagstaff
+	 *
+	 */
 	class ButtonHandler implements ActionListener{
 
+		/**
+		 * Method responsible for delegating button events to associated Model Controller.
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			// TODO Implement Controller class and uncomment this code.
 			((ModelController)getController()).operation(e.getActionCommand(), getViewId()); 	
 		}	
 	}
 	
+	/**
+	 * Inner class responsible for handling ComboBox events in the AccountModelView object.
+	 * @author Alexander Wagstaff
+	 *
+	 */
 	class ComboBoxHandler implements ActionListener{
 
+		/**
+		 * Method responsible for setting the viewI parameter to the accountId
+		 * of the selected account in the ComboBox.
+		 */
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String accountInfo = accountBox.getSelectedItem().toString();
@@ -104,8 +135,8 @@ public class AccountModelView extends JFrameView {
 			try{
 			setViewId(Integer.parseInt(accountComponents[1]));
 			}catch(NumberFormatException ex){
+				// This exception should never be reached.
 				System.out.println("Error: not a number for account ID");
-				// Replace with JDialog later
 			}
 			
 		}	

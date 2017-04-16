@@ -9,10 +9,24 @@ import simpleAccount.model.InsufficientFundsException;
 import simpleAccount.model.InvalidAmountException;
 import simpleAccount.view.AccountDetailView;
 
+/**
+ * The AccountController class represents the account controller for the account system.
+ * This class's primary role is to act as an interface between individual account instances
+ * in the AccountModel and the AccountDetailView.
+ * @author Alexander Wagstaff
+ *
+ */
 public class AccountController extends AbstractController {
 	private static final String WITHDRAWAL_ERROR = "Withdrawal Error";
 	private static final String DEPOSIT_ERROR = "Deposit Error";
 	
+	/**
+	 * Constructs an AccountController Object that acts as an interface between
+	 * The desired AccountDetailView and the AccountModel.
+	 * @param model The AccountModel to interface with
+	 * @param viewId The id of the account associated with this view
+	 * @param currencyType The type of currency the view is initialized in
+	 */
 	AccountController(AbstractModel model, int viewId, String currencyType){
 		setModel(model);
 		Account searchedAccount = ((AccountModel)getModel()).getAccount(viewId);
@@ -28,7 +42,13 @@ public class AccountController extends AbstractController {
 		setView(new AccountDetailView(model, this, viewId, accountString, currencyType, Double.toString(accountAmount)));
 	}
 	
-	// TODO flesh out the catch blocks to be more specific and generate JDialogs
+	/**
+	 * Receives input from the AccountDetailView and executes the desired operation on the AccountModel.
+	 * @param option The desired operation
+	 * @param viewId The id of the account associated with this view
+	 * @param enteredAmount The amount specified to be deposited or withdrawn
+	 * @param currencyType The type of currency specified to perform the operation with
+	 */
 	public void operation(String option, int viewId, String enteredAmount, String currencyType){
 			if(option.equals(AccountDetailView.DEPOSIT)){
 				try{
@@ -84,9 +104,15 @@ public class AccountController extends AbstractController {
 			
 	}
 	
-	// Used by the view to get modified currency in Euros or Yuan
+	/**
+	 * This method returns the currency in the appropriate format for the view that requested it.
+	 * @param amount The updated amount in the associated account
+	 * @param currencyType The type of currency the view is associated with
+	 * @return The formatted currency rounded to 2 decimal places
+	 */
 	public String getCurrency(double amount, String currencyType){
 		DecimalFormat df = new DecimalFormat("#.00");
+		// Convert the value in the account to the view's associated currency
 		if(currencyType.equals("Euro")){
 			amount = amount * AccountModel.EXCHANGE_EURO;
 		}

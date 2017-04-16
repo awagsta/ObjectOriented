@@ -11,19 +11,19 @@ import simpleAccount.model.Model;
 public interface View {
 	
 	/**
-	 * Returns the controller associated with this view object
+	 * Returns the controller associated with this view object.
 	 * @return  The controller
 	 */
 	Controller getController();
 	
 	/**
-	 * Sets the controller for this view object
+	 * Sets the controller for this view object.
 	 * @param controller The controller to be set
 	 */
 	void setController(Controller controller);
 	
 	/**
-	 * Returns the model associated with this view object
+	 * Returns the model associated with this view object.
 	 * @return The model
 	 */
 	Model getModel();

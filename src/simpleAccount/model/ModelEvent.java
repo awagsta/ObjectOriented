@@ -14,10 +14,10 @@ public class ModelEvent extends ActionEvent {
 	private double amount;
 	
 	/**
-	 * Constructor used to initialize the model event. Uses ActionEvent Parameters
+	 * Constructs a ModelEvent Object. Uses ActionEvent Parameters
 	 * as well as an additional parameter amount.
 	 * @param obj
-	 * @param id
+	 * @param id The id of the associated account that had it's information updated
 	 * @param message
 	 * @param temp the amount changed in the corresponding account
 	 */
@@ -27,15 +27,15 @@ public class ModelEvent extends ActionEvent {
 	}
 	
 	/**
-	 * This function returns the changed amount in the account
-	 * @return The amount currently in the account
+	 * This function returns the changed amount in the account.
+	 * @return The amount
 	 */
 	public double getAmount(){
 		return amount;
 	}
 	
 	/**
-	 * This function returns the id of the account associated with the model event
+	 * This function returns the id of the account associated with the model event.
 	 * @return the id
 	 */
 	public int getId(){

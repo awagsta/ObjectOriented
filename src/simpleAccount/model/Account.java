@@ -12,7 +12,7 @@ private int id;
 private double amount;
 
 	/**
-	 * Constructs a default account object
+	 * Constructs a default account object.
 	 */
 	public Account(){
 		name = "";
@@ -21,7 +21,7 @@ private double amount;
 	}
 	
 	/**
-	 * Constructs an account object with given parameters
+	 * Constructs an account object with given parameters.
 	 * @param name The name of the account holder
 	 * @param id The id of the account holder
 	 * @param amount The amount in the account
@@ -33,15 +33,15 @@ private double amount;
 	}
 	
 	/**
-	 * Returns the name of the account holder
-	 * @return the name of account holder
+	 * Returns the name of the account holder.
+	 * @return the name
 	 */
 	public String getName(){
 		return name;
 	}
 	
 	/**
-	 * Sets the name of the account holder
+	 * Sets the name of the account holder.
 	 * @param name the name to be set
 	 */
 	public void setName(String name){
@@ -49,15 +49,15 @@ private double amount;
 	}
 	
 	/**
-	 * Returns the id of the account holder
-	 * @return id of the account holder
+	 * Returns the id of the account holder.
+	 * @return id
 	 */
 	public int getId(){
 		return id;
 	}
 	
 	/**
-	 * Sets the id of the account holder
+	 * Sets the id of the account holder.
 	 * @param id the id to be set
 	 */
 	public void setId(int id){
@@ -65,7 +65,7 @@ private double amount;
 	}
 	
 	/**
-	 * Returns the amount in the account
+	 * Returns the amount in the account.
 	 * @return the amount
 	 */
 	public double getAmount(){
@@ -73,19 +73,25 @@ private double amount;
 	}
 	
 	/**
-	 * Set the amount in the account
+	 * Set the amount in the account.
 	 * @param amount the amount to be set
 	 */
 	public void setAmount(Double amount){
 		this.amount = amount;
 	}
 	
+
+	/**
+	 * returns a string representation of an account.
+	 */
 	public String toString(){
 		String temp = name + "\t" + id;
 		return temp;
 	}
 	
-	@Override
+	/**
+	 * Checks account objects for equality.
+	 */
 	public boolean equals(Object o){
 		if(o == null)
 			return false;
@@ -101,7 +107,9 @@ private double amount;
 			return false;
 		}
 	
-	@Override
+	/**
+	 * Returns a hashcode for an account object.
+	 */
 	public int hashCode(){
 		return id;
 	}

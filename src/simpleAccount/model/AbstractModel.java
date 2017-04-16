@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 /**
  * AbstractModel class consists of the necessary event handling mechanisms for the model
- * in the MVC Architecture. Its purpose is to be extended by any models who wish
+ * in the MVC Architecture. Its purpose is to be extended by any class who wish
  * to implement event notification and listening functionality.
  * @author Alexander Wagstaff
  *
@@ -20,7 +20,7 @@ public abstract class AbstractModel implements Model {
 	}
 	
 	/**
-	 * Remove a model listener from the model
+	 * Remove a model listener from the model.
 	 * @param listener the listener to be removed from the model.
 	 */
 	public void removeModelListener(ModelListener listener){
