@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 /**
  * The AccountModel class represents the model for an account controlling system. It forms the
  * model portion of the MVC architecture
@@ -28,16 +30,26 @@ public class AccountModel extends AbstractModel {
 		try{
 			inFile = new Scanner(new FileReader(fileName));
 		}catch(Exception e){
-			System.out.println("Unable to find file. System will now exit");
+			String message = "File not found. Program will now exit.";
+			JOptionPane.showInternalMessageDialog(null, message, "File Not Found", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		while(inFile.hasNext()){
 			String line = inFile.nextLine();
 			String[] words = line.split("\t");
 			try{
-				accountList.add(new Account(words[0], Integer.parseInt(words[1]), Double.parseDouble(words[2])));
+				Account temp = new Account(words[0], Integer.parseInt(words[1]), Double.parseDouble(words[2]));
+				if(!accountList.contains(temp)){
+					accountList.add(temp);
+				}
+				else throw new DuplicateAccountException(temp.toString());
 			}catch(NumberFormatException e){
-				System.out.println("Invalid entry in account ID or amount fields. Aborting insertion of affected account");
+				String errorMessage = "Invalid ID or Amount on line: " + line
+						+"\n in provided file. Skipping insertion of this account";
+				JOptionPane.showMessageDialog(null, errorMessage, "Invalid Fields", JOptionPane.ERROR_MESSAGE);
+			} 
+			catch (DuplicateAccountException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage(), "Insertion Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		inFile.close();
